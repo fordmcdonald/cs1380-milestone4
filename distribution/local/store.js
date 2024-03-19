@@ -1,6 +1,5 @@
 var fs = require('fs');
 var path = require('path');
-var crypto = require('crypto');
 var serialization = require('../util/serialization');
 var id = require('../util/id');
 

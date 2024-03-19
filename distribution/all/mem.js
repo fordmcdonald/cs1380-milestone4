@@ -1,5 +1,3 @@
-var crypto = require('crypto');
-var serialization = require('../util/serialization');
 var id = require('../util/id');
 
 // This is the main function that will be exported. It accepts a config object.

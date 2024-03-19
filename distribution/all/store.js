@@ -1,7 +1,6 @@
 // store.js
 var fs = require('fs');
 var path = require('path');
-var crypto = require('crypto');
 var serialization = require('../util/serialization');
 var id = require('../util/id');
 
@@ -23,7 +22,7 @@ function appendLog(message) {
 }
 
 function createStoreService({gid}) {
-  const baseDir = path.join(__dirname, 'store', gid); // Specify the directory for stored data
+  const baseDir = path.join(__dirname, 'store', gid);
 
   // Ensure base directory exists
   if (!fs.existsSync(baseDir)) {
@@ -118,8 +117,10 @@ function createStoreService({gid}) {
 
       // Step 2: Determine objects to be relocated.
       keys.forEach((key) => {
-        const oldNodeId = id.naiveHash(id.getID(key), oldGroup.nodes.map((node) => id.getNID(node)));
-        const newNodeId = id.naiveHash(id.getID(key), this.nodes.map((node) => id.getNID(node)));
+        const oldNodeId = id.naiveHash(id.getID(key),
+            oldGroup.nodes.map((node) => id.getNID(node)));
+        const newNodeId = id.naiveHash(id.getID(key),
+            this.nodes.map((node) => id.getNID(node)));
 
         if (oldNodeId !== newNodeId) {
           // This object needs to be relocated.
@@ -152,7 +153,8 @@ function createStoreService({gid}) {
             // Put the object on its new node.
             this.put(object, key, (putError, v) => {
               if (putError) {
-                console.error(`Error putting object for key ${key} on new node:`, putError);
+                console.error(`Error putting object for key 
+                    ${key} on new node:`, putError);
                 return;
               }
 
