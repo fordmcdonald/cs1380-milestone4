@@ -426,7 +426,6 @@ test('(2 pts) local.groups.put(dummy)/rem(n1)/get(dummy)', (done) => {
 test('(0.5 pts) local.mem.get(jcarb)', (done) => {
   const key = 'jcarbmg';
 
-  console.log("LOCAL MEM: ", distribution.local.mem);
   distribution.local.mem.get(key, (e, v) => {
     try {
       expect(e).toBeInstanceOf(Error);

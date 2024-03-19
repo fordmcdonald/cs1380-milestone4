@@ -122,7 +122,6 @@ const start = function(onStart) {
         service[method](...args, serviceCallback);
       });
     });
-
   });
 
 

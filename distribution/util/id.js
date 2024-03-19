@@ -34,14 +34,14 @@ function naiveHash(kid, nids) {
 function consistentHash(kid, nids) {
   // Convert the KID and NIDs to numerical representations and insert them into a list
   const kidNum = parseInt(kid.substring(0, 16), 16);
-  const nidsNum = nids.map(nid => ({ nid, num: parseInt(nid.substring(0, 16), 16) }));
+  const nidsNum = nids.map((nid) => ({nid, num: parseInt(nid.substring(0, 16), 16)}));
 
   // Combine and sort the list based on the numerical representation
-  const combined = nidsNum.concat({ nid: kid, num: kidNum });
+  const combined = nidsNum.concat({nid: kid, num: kidNum});
   combined.sort((a, b) => a.num - b.num);
 
   // Find the element right after the one corresponding to KID
-  const index = combined.findIndex(element => element.nid === kid);
+  const index = combined.findIndex((element) => element.nid === kid);
   const nextIndex = (index + 1) % combined.length; // Wrap around if the KID is the last in the list
 
   // Return the NID of the next element
@@ -53,20 +53,20 @@ function rendezvousHash(kid, nids) {
   let maxHash = null;
   let chosenNID = null;
 
-  nids.forEach(nid => {
-      // Concatenate KID and NID
-      const combinedValue = kid + nid;
-      // Hash the combined value
-      const hash = getID(combinedValue)
+  nids.forEach((nid) => {
+    // Concatenate KID and NID
+    const combinedValue = kid + nid;
+    // Hash the combined value
+    const hash = getID(combinedValue);
 
-      // Convert hash to a numerical representation (here, just taking the first 16 characters to fit into a Number in JS)
-      const numericalHash = parseInt(hash.substring(0, 16), 16);
+    // Convert hash to a numerical representation (here, just taking the first 16 characters to fit into a Number in JS)
+    const numericalHash = parseInt(hash.substring(0, 16), 16);
 
-      // Check if this is the highest hash value so far
-      if (maxHash === null || numericalHash > maxHash) {
-          maxHash = numericalHash;
-          chosenNID = nid;
-      }
+    // Check if this is the highest hash value so far
+    if (maxHash === null || numericalHash > maxHash) {
+      maxHash = numericalHash;
+      chosenNID = nid;
+    }
   });
 
   return chosenNID;
