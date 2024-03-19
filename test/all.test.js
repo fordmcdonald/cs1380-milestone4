@@ -143,6 +143,7 @@ afterAll((done) => {
   });
 });
 
+
 // ---all.comm---
 
 test('(4 pts) all.comm.send(status.get(nid))', (done) => {
@@ -858,6 +859,7 @@ test(
       const nodes = [n2, n4, n6];
       const nids = nodes.map((node) => id.getNID(node));
 
+      console.log("Running all.store.put(jcarb)/local.comm.send(store.get(jcarb))")
       distribution.group3.store.put(user, key, (e, v) => {
         const nid = id.rendezvousHash(kid, nids);
         const pickedNode = nodes.filter((node)=> id.getNID(node) === nid)[0];
